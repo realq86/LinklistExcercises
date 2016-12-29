@@ -11,6 +11,8 @@
 
 @interface LinklistExcerciseViewController ()
 
+@property Queue *queueForMovingAverage;
+
 @end
 
 @implementation LinklistExcerciseViewController
@@ -24,6 +26,7 @@
 //    [self sumLists];
 //    [self intersectOfTwoLists];
 
+    [self movingAverage:3];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -329,6 +332,60 @@
     
     return count;
 }
+
+
+#pragma mark Moving Data Stream
+//            Moving Average from Data Stream
+//
+//            Given a stream of integers and a window size, calculate the moving average of all integers in the sliding window.
+//
+//            For example,
+//            MovingAverage m = new MovingAverage(3);
+//            m.next(1) = 1
+//            m.next(10) = (1 + 10) / 2
+//            m.next(3) = (1 + 10 + 3) / 3
+//            m.next(5) = (10 + 3 + 5) / 3
+
+- (void)movingAverage:(int)window {
+
+    self.queueForMovingAverage = [Queue new];
+    
+    int average = [self movingAverageWindow:window Next:1];
+    NSLog(@"%d", average);
+    
+    average = [self movingAverageWindow:window Next:3];
+    NSLog(@"%d", average);
+    
+    average = [self movingAverageWindow:window Next:5];
+    NSLog(@"%d", average);
+}
+
+- (int)movingAverageWindow:(int)window Next:(int)next {
+    
+    if (self.queueForMovingAverage.length > window) {
+        [self.queueForMovingAverage enqueue];
+    }
+    [self.queueForMovingAverage insert:next];
+    
+    Queue *newQueue = [Queue new];
+    
+    
+    int sum = 0;
+    int length = self.queueForMovingAverage.length;
+    for (int i=0; i<length; i++) {
+        
+        int first = [self.queueForMovingAverage enqueue];
+        sum = sum + first;
+        
+        [newQueue insert:first];
+    }
+    
+    
+    self.queueForMovingAverage = newQueue;
+    
+    return sum/length;
+}
+
 
 @end
 

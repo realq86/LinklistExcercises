@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Node.h"
+#import "Queue.h"
 
 @interface LinklistExcerciseViewController : UIViewController
 
