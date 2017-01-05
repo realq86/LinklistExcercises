@@ -56,8 +56,26 @@
     NSLog(@"%@", head);
     Node *headTwo = [self createListLength:4 startingAt:6];
     
-    List *list = [self reverseList:head];
+    List *list = [self reverseListTwo:head];
     NSLog(@"%@", list.head);
+}
+
+- (List *)reverseListTwo:(Node *)head {
+
+    List *reversedList = [List new];
+
+    Node *current = head;
+    while (current != nil) {
+    
+        Node *temp = current;
+        current = current.next;
+        
+        //Insert temp into reverseList's front
+        temp.next = reversedList.head;
+        reversedList.head = temp;
+    }
+
+    return reversedList;
 }
 
 - (List *)reverseList:(Node *)head {
