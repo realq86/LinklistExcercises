@@ -139,43 +139,44 @@
 
 //Remove all elements from a linked list of integers that have value val.
 - (void)removeValueFromList {
-    Node *head = [self createListLength:6 startingAt:6];
+    Node *head = [self createListLength:1 startingAt:6];
     NSLog(@"%@", head);
-    Node *headTwo = [self createListLength:3 startingAt:6];
+    Node *headTwo = [self createListLength:5 startingAt:6];
     
     /*  Create a list with duplicat and than remove duplicat   */
-    List *list = [self reverseList:headTwo];
-    list.tail.next = head;
-    Node *listWithDuplicat = list.head;
+    List *list = [self reverseList:head];
+    list.tail.next = headTwo;
+    Node *listWithDuplicate = list.head;
     
-    [self removeValue:5 fromList:listWithDuplicat];
-    NSLog(@"%@", listWithDuplicat);
+    
+    [self printList:listWithDuplicate];
+    Node *solutionList = [self removeValue:6 fromList:listWithDuplicate];
+    [self printList:solutionList];
 }
 
-- (void)removeValue:(int)value fromList:(Node *)head {
-    
+- (Node *)removeValue:(int)value fromList:(Node *)head {
+
     Node *current = head;
+    while(current.next != nil) {
+        
+        Node *next = current.next;
+        if (next.content == value) {
+        
+            current.next = next.next;        
+        }
+        else {
+            current = current.next;
+        }
+    }
     
-    if (current.content == value) {
-        //Remove head;
+    if (head.content == value) {
+        
         head = head.next;
     }
     
-    while (current != nil) {
-
-        if (current.next.content != value) {
-            current = current.next;
-        }
-        else {
-            [self removeNextNodeFromList:current];
-        }
-    }
+    return head;
 }
 
-- (void)removeNextNodeFromList:(Node *)node {
-    
-    node.next = node.next.next;
-}
 
 /* Linklist partiction: partition a link list around a vlaue x, such that all nodes less than x comes before all 
  nodes greater than or equal to x.  If xis contained within the list, the value just needs to be after the element
