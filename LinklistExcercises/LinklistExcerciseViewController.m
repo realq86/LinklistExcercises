@@ -48,7 +48,21 @@
     return node;
 }
 
+- (void)printList:(Node *)head {
 
+    NSMutableString *outputString = [NSMutableString new];
+    
+    Node *current = head;
+    
+    while(current != nil) {
+        
+        [outputString appendFormat:@" %d", current.content];
+        
+        current = current.next;
+    }
+
+    NSLog(@"%@", outputString);
+}
 
 - (void)reverseList {
     
@@ -100,7 +114,7 @@
 
 - (void)EqualLists {
     Node *head = [self createListLength:6 startingAt:6];
-    NSLog(@"%@", head);
+    [self printList:head];
     Node *headTwo = [self createListLength:6 startingAt:6];
     
     BOOL result = [self IsListA:head equalToListB:headTwo];
