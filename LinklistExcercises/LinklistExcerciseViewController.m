@@ -122,14 +122,7 @@
 }
 
 - (BOOL)IsListA:(Node *)headA equalToListB:(Node *)headB {
-    
-    if (headA == nil && headB == nil) {
-        return YES;
-    }
-    else if (headA == nil || headB == nil){
-        return NO;
-    }
-    
+        
     Node *currentA = headA;
     Node *currentB = headB;
     BOOL result = YES;
