@@ -186,25 +186,63 @@
 
 
 /* Linklist partiction: partition a link list around a vlaue x, such that all nodes less than x comes before all 
- nodes greater than or equal to x.  If xis contained within the list, the value just needs to be after the element
+ nodes greater than or equal to x.  If x is contained within the list, the value just needs to be after the element
  less than x  */
 
 - (void)linklistPartition {
     Node *head = [self createListLength:6 startingAt:6];
-    NSLog(@"%@", head);
     Node *headTwo = [self createListLength:3 startingAt:6];
 
     //Create a list with duplicat and than remove duplicat
     List *list = [self reverseList:headTwo];
     list.tail.next = head;
-    Node *listWithDuplicat = list.head;
+    Node *listWithDuplicate = list.head;
     //4 - 5 - 6 - 6 - 5 - 4 - 3 - 2 - 1
     
-    int x=4;
+    int x=5;
     
-    Node *partitionedList = [self partitionLinkList:listWithDuplicat atValue:x];
-    NSLog(@"%@", partitionedList);
+    [self printList:listWithDuplicate];
+    Node *partitionedList = [self partitionLinkList:listWithDuplicate atValue:x];
+    [self printList:partitionedList];
     // 1 - 2 - 3 - 4 - 5 - 6 - 6 - 5 - 4
+}
+
+- (Node *)partitionLinkListTwo:(Node *)head atValue:(int)k {
+    
+    Node *front;
+    Node *endOfFront;
+    Node *back;
+    
+    Node *current = head;
+    while ( current != nil) {
+    
+        Node *temp = current;
+        current = current.next;
+        temp.next = nil;
+        
+        if (temp.content < k) {
+            if (front == nil) {
+                front = temp;
+                endOfFront = front;
+            }
+            else {
+                temp.next = front;
+                front = temp;
+            }
+        }
+        else {
+            if (back == nil) {
+                back = temp;
+            }
+            else {
+                temp.next = back;
+                back = temp;
+            }
+        }
+    }
+    
+    endOfFront.next = back;
+    return front;
 }
 
 - (Node *)partitionLinkList:(Node *)head atValue:(int)k {
