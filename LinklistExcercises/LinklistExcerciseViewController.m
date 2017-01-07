@@ -288,44 +288,50 @@
 }
 
 
+# pragma mark Sum Lists
 /*  Sum List: Two numbers are represented by a linked list, where each node contains a single digit.  
  The digits are stored in reverse order.  
  While a function that adds the two numbers and returns the sum as a linked list   */
 
 - (void)sumLists {
-    Node *head = [self createListLength:6 startingAt:6];   // 6 - 5 - 4 - 3 - 2 - 1
-    Node *headTwo = [self createListLength:3 startingAt:6];  // 6 - 5 - 4
+    Node *head = [self createListLength:1 startingAt:4];   // 6 - 5 - 4 - 3 - 2 - 1
+    Node *headTwo = [self createListLength:1 startingAt:4];  // 6 - 5 - 4
     //Create reverse list.
     List *list = [self reverseList:headTwo];
     headTwo = list.head;  // 4 - 5 - 6
     
     Node *sum = [Node new];
-    
-    [self addListA:head andB:headTwo toC:sum withCarry:0];
-    NSLog(@"%@", sum);
+    sum.content = 0;
+    [self addListA:head andB:headTwo toC:sum];
+    [self printList:sum];
 }
 
-- (void)addListA:(Node *)nodeA andB:(Node *)nodeB toC:(Node *)nodeC withCarry:(int)carry {
+- (void)addListA:(Node *)nodeA andB:(Node *)nodeB toC:(Node *)nodeC {
+
+    int a = 0;
+    if (nodeA) {
+        a = nodeA.content;
+    }
     
-        int aContent = 0;
-        int bContent = 0;
-        if (nodeA) {
-            aContent = nodeA.content;
-        }
-        if (nodeB) {
-            bContent = nodeB.content;
-        }
-        
-        int sum = aContent + bContent + carry;
-        carry = sum / 10;
-        
-        nodeC.content = sum % 10;
+    int b = 0;
+    if (nodeB) {
+        b = nodeB.content;
+    }
     
-    if (nodeA || nodeB || carry>0) {
-        nodeC.next = [Node new];
-        [self addListA:nodeA.next andB:nodeB.next toC:nodeC.next withCarry:carry];
-        
-        NSLog(@"%@", nodeC);
+    int c = nodeC.content;
+    
+    int sum = a + b + c;
+    c = sum % 10;
+    nodeC.content = c;
+
+    int carray = sum / 10;
+    
+    if (nodeA.next != nil || nodeB.next != nil || carray > 0 ) {
+    
+        Node *carrayNode = [Node new];
+        carrayNode.content = carray;
+        nodeC.next = carrayNode;
+        [self addListA:nodeA.next andB:nodeB.next toC:nodeC.next];
     }
 }
 
