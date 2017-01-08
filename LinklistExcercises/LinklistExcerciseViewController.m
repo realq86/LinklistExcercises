@@ -69,6 +69,9 @@
     NSLog(@"%@", outputString);
 }
 
+
+#pragma mark ReverseList
+
 - (void)reverseList {
     
     Node *head = [self createListLength:6 startingAt:6];
@@ -117,6 +120,7 @@
     return reversedList;
 }
 
+#pragma mark Check for equality
 - (void)EqualLists {
     Node *head = [self createListLength:6 startingAt:6];
     [self printList:head];
@@ -125,6 +129,7 @@
     BOOL result = [self IsListA:head equalToListB:headTwo];
     NSLog(@"%d", result);
 }
+
 
 - (BOOL)IsListA:(Node *)headA equalToListB:(Node *)headB {
         
@@ -149,6 +154,7 @@
     return result;
 }
 
+#pragma mark Remove value
 //Remove all elements from a linked list of integers that have value val.
 - (void)removeValueFromList {
     Node *head = [self createListLength:1 startingAt:6];
@@ -189,6 +195,7 @@
     return head;
 }
 
+#pragma mark Linklist partiction
 
 /* Linklist partiction: partition a link list around a vlaue x, such that all nodes less than x comes before all 
  nodes greater than or equal to x.  If x is contained within the list, the value just needs to be after the element
@@ -339,6 +346,9 @@
         [self addListA:nodeA.next andB:nodeB.next toC:nodeC.next];
     }
 }
+
+
+#pragma mark IntersectOfTwoLists
 
 - (void)intersectOfTwoLists {
     
