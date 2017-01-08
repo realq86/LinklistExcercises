@@ -24,9 +24,14 @@
 //    [self removeValueFromList];
 //    [self linklistPartition];
 //    [self sumLists];
-//    [self intersectOfTwoLists];
+    [self intersectOfTwoLists];
 
-    [self movingAverage:3];
+//    [self reverseList];
+//    [self EqualLists];
+//    [self movingAverage:3];
+    
+//    [self removeValueFromList];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -351,7 +356,53 @@
     listB = customListB.head;
     
     Node *intersection = [self intersectOfListA:listA andListB:listB];
-    NSLog(@"");
+    [self printList:intersection];
+}
+
+
+- (Node *)v2intersectOfListA:(Node *)headA andListB:(Node *)headB {
+
+    //Find longer of the two
+    Node *longerList;
+    Node *shorterList;
+    
+    int diffOfLists = 0;
+    Node *currentA = headA;
+    Node *currentB = headB;
+    while (currentA != nil || currentB != nil){
+    
+        if (currentA == nil) {
+            longerList = headB;
+            shorterList = headA;
+            diffOfLists++;
+        }
+        if (currentB == nil) {
+            longerList = headA;
+            shorterList = headB;
+            diffOfLists++;
+        }
+        
+        currentA = currentA.next;
+        currentB = currentB.next;
+    }
+
+    for (int i=0; i<diffOfLists; i++){
+        longerList = longerList.next;
+    }
+    
+    Node *currentLong = longerList;
+    Node *currentShort = shorterList;
+    while (currentLong != nil && currentShort != nil) {
+        
+        if (currentLong.content == currentShort.content) {
+            break;
+        }
+        
+        currentLong = currentLong.next;
+        currentShort = currentShort.next;
+    }
+
+    return currentLong;
 }
 
 
